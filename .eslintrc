@@ -1,0 +1,24 @@
+
+{
+  "plugins": ["prettier", "svelte3"],
+  "extends": ["eslint:recommended"],
+  "env": {
+    "node": true,
+    "es6": true,
+    "browser": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+  },
+  "overrides": [
+    {
+      "files": ["*.svelte"],
+      "processor": "svelte3/svelte3"
+    }
+  ],
+  "rules": {
+    "prettier/prettier": "error",
+    "max-len": ["error", {"code": 120}]
+  }
+}
