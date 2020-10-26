@@ -1,6 +1,6 @@
 <script>
   import { fly } from 'svelte/transition';
-  import { selectedBoilr } from '../store';
+  import { selectedBoilr, notifs } from '../store';
   import Api from '../services/api';
   import Header from '../components/Boilr/Header.svelte';
   import Options from '../components/Boilr/Options.svelte';
@@ -14,13 +14,26 @@
   };
 
   let download = (config) => {
+    const type = config.boilr.slice();
+    const title = config.header.title.slice();
+
+    notifs.pushDownload(type, title);
+
     Api.createAndDownloadAngularProject(config).then((res) => {
-      FileDownload(res.data, `${config.header.title}.zip`);
+      notifs.remove(type, title);
+      FileDownload(res.data, `${title}.zip`);
     });
   };
 
   let upload = (config) => {
-    Api.createAndUploadAngularProject(config).then(() => {});
+    const type = config.boilr.slice();
+    const title = config.header.title.slice();
+
+    notifs.pushUpload(type, title);
+
+    Api.createAndUploadAngularProject(config).then(() => {
+      notifs.remove(type, title);
+    });
   };
 </script>
 

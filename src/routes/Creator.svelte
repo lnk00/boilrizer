@@ -3,8 +3,9 @@
   import { push } from 'svelte-spa-router';
   import { _ } from 'svelte-i18n';
   import { fade } from 'svelte/transition';
-  import { selectedBoilr } from '../store';
+  import { selectedBoilr, notifs } from '../store';
   import Boilr from '../components/Boilr.svelte';
+  import Notif from '../components/Notif.svelte';
 
   let getBoilrs = async () => {
     const res = await Api.getPopularBoilr();
@@ -124,6 +125,13 @@
       }
     }
   }
+
+  .notif-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 24px;
+  }
 </style>
 
 {#await getBoilrs()}
@@ -160,3 +168,9 @@
     </div>
   </div>
 {/await}
+
+<div class="notif-container">
+  {#each $notifs as item}
+    <Notif {item} />
+  {/each}
+</div>
