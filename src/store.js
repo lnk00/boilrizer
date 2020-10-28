@@ -9,9 +9,11 @@ function createNotif() {
 
   return {
     subscribe,
-    pushDownload: (type, title) => update(Notification.pushDownload.bind(this, type, title)),
-    remove: (type, title) => update(Notification.remove.bind(this, type, title)),
-    pushUpload: (type, title) => update(Notification.pushUpload.bind(this, type, title)),
+    pushDownload: (type, title, uuid) => update(Notification.pushDownload.bind(this, type, title, uuid)),
+    pushDownloaded: (type, title, uuid) => update(Notification.pushDownloaded.bind(this, type, title, uuid)),
+    pushUpload: (type, title, uuid) => update(Notification.pushUpload.bind(this, type, title, uuid)),
+    pushUploaded: (type, title, uuid) => update(Notification.pushUploaded.bind(this, type, title, uuid)),
+    remove: (uuid) => update(Notification.remove.bind(this, uuid)),
     reset: () => set([])
   };
 }

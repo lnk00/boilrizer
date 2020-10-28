@@ -139,7 +139,7 @@
         @media (max-width: 924px) {
           justify-content: space-evenly;
 
-          *:nth-last-child(2) {
+          :global(.card):nth-last-child(2) {
             display: none;
           }
         }
@@ -147,7 +147,7 @@
         @media (max-width: 1280px) {
           justify-content: space-evenly;
 
-          *:last-child {
+          :global(.card):last-child {
             display: none;
           }
         }
@@ -189,7 +189,7 @@
       <h3>{$_('popular_title')}</h3>
       <div class="cards">
         {#each data as boilr, i}
-          <Card infos={boilr} />
+          <Card class="card" infos={boilr} />
         {/each}
       </div>
       <Btn>{$_('browse_more_btn')}</Btn>

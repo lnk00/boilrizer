@@ -7,6 +7,7 @@
   import Btn from '../components/Btn.svelte';
   import FileDownload from 'js-file-download';
   import { _ } from 'svelte-i18n';
+  import { v4 as uuidv4 } from 'uuid';
 
   let getConfig = async () => {
     const res = await Api.getConfig($selectedBoilr.title);
@@ -17,10 +18,15 @@
     const type = config.boilr.slice();
     const title = config.header.title.slice();
 
-    notifs.pushDownload(type, title);
+    const uuid = uuidv4();
+    notifs.pushDownload(type, title, uuid);
 
     Api.createAndDownloadAngularProject(config).then((res) => {
-      notifs.remove(type, title);
+      notifs.remove(uuid);
+
+      const uuid2 = uuidv4();
+      setTimeout(() => notifs.pushDownloaded(type, title, uuid2), 500);
+
       FileDownload(res.data, `${title}.zip`);
     });
   };
@@ -29,10 +35,14 @@
     const type = config.boilr.slice();
     const title = config.header.title.slice();
 
-    notifs.pushUpload(type, title);
+    const uuid = uuidv4();
+    notifs.pushUpload(type, title, uuid);
 
     Api.createAndUploadAngularProject(config).then(() => {
-      notifs.remove(type, title);
+      notifs.remove(uuid);
+
+      const uuid2 = uuidv4();
+      setTimeout(() => notifs.pushUploaded(type, title, uuid2), 500);
     });
   };
 </script>

@@ -81,7 +81,7 @@
   }
 </style>
 
-<div class="boilrplate-card">
+<div class="boilrplate-card {$$props.class}">
   <div class="img-container">
     <img class="logo" src="../assets/img/{infos.img}" alt="boilr logos" />
     <img class="bg" src="/assets/img/bg.svg" alt="Background" />

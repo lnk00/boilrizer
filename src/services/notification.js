@@ -1,28 +1,52 @@
 
 export default {
-  pushDownload(type, title, notifList) {
+  pushDownload(type, title, uuid, notifList) {
     notifList.push({
+      uuid: uuid,
       type: type,
       title: title,
-      subject: 'download',
+      state: 'waiting',
       desc: 'Please wait. We are creating your project !'
     });
     return notifList;
   },
 
-  pushUpload(type, title, notifList) {
+  pushDownloaded(type, title, uuid, notifList) {
     notifList.push({
+      uuid: uuid,
       type: type,
       title: title,
-      subject: 'upload',
+      state: 'finished',
+      desc: 'Your project is ready !'
+    });
+    return notifList;
+  },
+
+  pushUpload(type, title, uuid, notifList) {
+    notifList.push({
+      uuid: uuid,
+      type: type,
+      title: title,
+      state: 'waiting',
       desc: 'Please wait. We are creating your project !'
     });
     return notifList;
   },
 
-  remove(type, title, notifList) {
+  pushUploaded(type, title, uuid, notifList) {
+    notifList.push({
+      uuid: uuid,
+      type: type,
+      title: title,
+      state: 'finished',
+      desc: 'Your project is ready !'
+    });
+    return notifList;
+  },
+
+  remove(uuid, notifList) {
     return notifList.filter((item) => {
-      return item.title !== title;
+      return item.uuid !== uuid;
     });
   }
 }
