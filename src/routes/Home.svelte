@@ -7,11 +7,6 @@
   import { logo, pattern, illustration } from '../services/img';
   import Api from '../services/api';
 
-  let getPopular = async () => {
-    const res = await Api.getPopularBoilr();
-    return res.data.payload;
-  };
-
   let onClickDiscover = () => console.log('Discover !');
   let onClickCreate = () => console.log('Create !');
   let onClickLogin = () => push('/signin');
@@ -156,7 +151,7 @@
   }
 </style>
 
-{#await getPopular()}
+{#await Api.getPopularBoilr()}
   <div />
 {:then data}
   <div class="navbar" in:fade>

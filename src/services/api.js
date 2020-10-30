@@ -1,15 +1,17 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:3000'
+const baseURL = 'http://localhost:3000';
 const baseURLv1 = `${baseURL}/v1`;
 
 export default {
-  getPopularBoilr() {
-    return axios.get(`${baseURLv1}/popular`);
+  async getPopularBoilr() {
+    let res = await axios.get(`${baseURLv1}/popular`);
+    return res.data;
   },
 
-  getConfig(boilrTitle) {
-    return axios.post(`${baseURLv1}/config`, {boilr: boilrTitle});
+  async getConfig(boilrTitle) {
+    let res = await axios.post(`${baseURLv1}/config`, { boilr: boilrTitle });
+    return res.data;
   },
 
   createAndDownloadAngularProject(options) {
@@ -28,5 +30,5 @@ export default {
   },
 
   baseURL,
-  baseURLv1
+  baseURLv1,
 };

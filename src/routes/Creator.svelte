@@ -7,11 +7,6 @@
   import Boilr from '../components/Boilr.svelte';
   import Notif from '../components/Notif.svelte';
 
-  let getBoilrs = async () => {
-    const res = await Api.getPopularBoilr();
-    return res.data.payload;
-  };
-
   let onClickLogo = () => {
     push('/');
   };
@@ -134,7 +129,7 @@
   }
 </style>
 
-{#await getBoilrs()}
+{#await Api.getPopularBoilr()}
   <div />
 {:then boilrs}
   <div class="creator" in:fade>

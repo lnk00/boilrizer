@@ -9,11 +9,6 @@
   import { _ } from 'svelte-i18n';
   import { v4 as uuidv4 } from 'uuid';
 
-  let getConfig = async () => {
-    const res = await Api.getConfig($selectedBoilr.title);
-    return res.data.payload;
-  };
-
   let download = (config) => {
     const type = config.boilr.slice();
     const title = config.header.title.slice();
@@ -67,7 +62,7 @@
 </style>
 
 {#key $selectedBoilr}
-  {#await getConfig()}
+  {#await Api.getConfig($selectedBoilr.title)}
     <div />
   {:then config}
     <div
