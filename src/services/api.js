@@ -14,17 +14,17 @@ export default {
     return res.data;
   },
 
-  createAndDownloadAngularProject(options) {
+  createAndDownloadAngularProject(config) {
     return axios.post(
-      `${baseURLv1}/angular/createdownload`,
-      { options },
+      `${baseURLv1}/download`,
+      { config },
       { responseType: 'arraybuffer' }
     );
   },
 
-  createAndUploadAngularProject(options) {
-    return axios.post(`${baseURLv1}/angular/createupload`, {
-      options,
+  createAndUploadAngularProject(config) {
+    return axios.post(`${baseURLv1}/upload`, {
+      config,
       secret: localStorage.getItem('secret'),
     });
   },
