@@ -14,7 +14,7 @@ export default {
     return res.data;
   },
 
-  createAndDownloadAngularProject(config) {
+  createAndDownload(config) {
     return axios.post(
       `${baseURLv1}/download`,
       { config },
@@ -22,7 +22,7 @@ export default {
     );
   },
 
-  createAndUploadAngularProject(config) {
+  createAndUpload(config) {
     return axios.post(`${baseURLv1}/upload`, {
       config,
       secret: localStorage.getItem('secret'),

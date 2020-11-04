@@ -8,6 +8,7 @@
   import FileDownload from 'js-file-download';
   import { _ } from 'svelte-i18n';
   import { v4 as uuidv4 } from 'uuid';
+  import { push } from 'svelte-spa-router';
 
   let download = (config) => {
     const type = config.boilr.slice();
@@ -16,9 +17,8 @@
     const uuid = uuidv4();
     notifs.pushDownload(type, title, uuid);
 
-    Api.createAndDownloadAngularProject(config).then((res) => {
+    Api.createAndDownload(config).then((res) => {
       notifs.remove(uuid);
-
       const uuid2 = uuidv4();
       setTimeout(() => notifs.pushDownloaded(type, title, uuid2), 500);
 
@@ -33,11 +33,15 @@
     const uuid = uuidv4();
     notifs.pushUpload(type, title, uuid);
 
-    Api.createAndUploadAngularProject(config).then(() => {
-      notifs.remove(uuid);
+    Api.createAndUpload(config).then((res) => {
+      if (res.data.redirect) {
+        if (localStorage.getItem('secret')) localStorage.removeItem('secret');
+        push('/signin');
+      }
 
+      notifs.remove(uuid);
       const uuid2 = uuidv4();
-      setTimeout(() => notifs.pushUploaded(type, title, uuid2), 500);
+      setTimeout(() => notifs.pushUploaded(type, title, uuid2, res.data.ssh_url), 500);
     });
   };
 </script>

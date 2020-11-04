@@ -4,9 +4,17 @@
 
   export let item;
 
+  const url = item.url ? `git clone ${item.url}` : null;
+
   let closeNotif = () => {
     notifs.remove(item.uuid);
   };
+
+  let copyUrl = () => {
+    navigator.clipboard.writeText(url).then(() => {
+      console.log('COPIED!');
+    })
+  }
 </script>
 
 <style type="text/scss">
@@ -19,7 +27,7 @@
     box-shadow: $shadow;
     border-radius: 4px;
     background-color: $white;
-    width: 340px;
+    min-width: 340px;
 
     .close {
       position: absolute;
@@ -45,6 +53,7 @@
       display: flex;
       align-items: center;
       justify-content: flex-start;
+      margin-bottom: 12px;
 
       .loading {
         margin-right: 12px;
@@ -55,6 +64,30 @@
       .finished {
         margin-right: 12px;
         margin-left: 6px;
+      }
+    }
+
+    .third-row {
+      .copy-container {
+        display: flex;
+        cursor: pointer;
+
+        .url {
+          background-color: $light-grey;
+          padding: 8px;
+          border-top-left-radius: 4px;
+          border-bottom-left-radius: 4px;
+        }
+
+        .copy {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-top-right-radius: 4px;
+          border-bottom-right-radius: 4px;
+          background-color: $blue;
+          width: 35px;
+        }
       }
     }
   }
@@ -96,4 +129,14 @@
     {/if}
     <span>{item.desc}</span>
   </div>
+  {#if item.state === 'finished' && url}
+  <div class="third-row">
+    <div class="copy-container" on:click={copyUrl}>
+      <div class="url">{url}</div>
+      <div class="copy">
+        <img src="assets/img/copy.svg" alt="cpoy button" height="18">
+      </div>
+    </div>
+  </div>
+  {/if}
 </div>
